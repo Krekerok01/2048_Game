@@ -1,4 +1,4 @@
-package game2048;
+package game2048.model;
 
 public class MoveEfficiency implements Comparable<MoveEfficiency>{
     private int numberOfEmptyTiles;

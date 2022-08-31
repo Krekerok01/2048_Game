@@ -1,4 +1,8 @@
-package game2048;
+package game2048.model;
+
+import game2048.entity.Tile;
+import game2048.model.Move;
+import game2048.model.MoveEfficiency;
 
 import java.util.*;
 
@@ -169,7 +173,7 @@ public class Model {
         return getEmptyTilesCount() == 0;
     }
 
-    boolean canMove() {
+    public boolean canMove() {
         if (!isFull()) {
             return true;
         }

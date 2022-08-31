@@ -1,5 +1,8 @@
 package game2048;
 
+import game2048.controller.Controller;
+import game2048.model.Model;
+
 import javax.swing.*;
 
 public class Main {

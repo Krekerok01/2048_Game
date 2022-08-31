@@ -1,4 +1,4 @@
-package game2048;
+package game2048.model;
 
 @FunctionalInterface
 public interface Move {

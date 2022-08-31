@@ -1,9 +1,9 @@
-package game2048;
+package game2048.entity;
 
 import java.awt.*;
 
 public class Tile {
-    int value;
+    public int value;
 
     public Tile(int value) {
         this.value = value;

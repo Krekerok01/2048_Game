@@ -1,4 +1,8 @@
-package game2048;
+package game2048.controller;
+
+import game2048.model.Model;
+import game2048.view.View;
+import game2048.entity.Tile;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
