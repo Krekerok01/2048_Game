@@ -2,6 +2,7 @@ package game2048.view;
 
 import game2048.controller.Controller;
 import game2048.entity.Tile;
+import game2048.model.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,16 +12,31 @@ public class View extends JPanel {
     private static final String FONT_NAME = "Arial";
     private static final int TILE_SIZE = 96;
     private static final int TILE_MARGIN = 12;
+    private boolean isGameWon = false;
+    private boolean isGameLost = false;
 
     private Controller controller;
-
-    public boolean isGameWon = false;
-    public boolean isGameLost = false;
 
     public View(Controller controller) {
         setFocusable(true);
         this.controller = controller;
         addKeyListener(controller);
+    }
+
+    public boolean isGameWon() {
+        return isGameWon;
+    }
+
+    public void setGameWon(boolean gameWon) {
+        isGameWon = gameWon;
+    }
+
+    public boolean isGameLost() {
+        return isGameLost;
+    }
+
+    public void setGameLost(boolean gameLost) {
+        isGameLost = gameLost;
     }
 
     @Override
@@ -38,15 +54,36 @@ public class View extends JPanel {
 
         if (isGameWon) {
             JOptionPane.showMessageDialog(this, "You've won!");
+            startNewGame();
+
         } else if (isGameLost) {
             JOptionPane.showMessageDialog(this, "You've lost :(");
+            startNewGame();
         }
+
+
+    }
+
+    private void startNewGame(){
+        Model model = new Model();
+        Controller controller = new Controller(model);
+        JFrame game = new JFrame();
+
+        game.setTitle("2048");
+        game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        game.setSize(450, 520);
+        game.setResizable(false);
+
+        game.add(controller.getView());
+
+        game.setLocationRelativeTo(null);
+        game.setVisible(true);
     }
 
     private void drawTile(Graphics g2, Tile tile, int x, int y) {
         Graphics2D g = ((Graphics2D) g2);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int value = tile.value;
+        int value = tile.getValue();
         int xOffset = offsetCoors(x);
         int yOffset = offsetCoors(y);
         g.setColor(tile.getTileColor());

@@ -3,14 +3,22 @@ package game2048.entity;
 import java.awt.*;
 
 public class Tile {
-    public int value;
+    private int value;
+
+    public Tile() {
+        value = 0;
+    }
 
     public Tile(int value) {
         this.value = value;
     }
 
-    public Tile() {
-        value = 0;
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public boolean isEmpty(){

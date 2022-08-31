@@ -4,6 +4,7 @@ import game2048.model.Model;
 import game2048.view.View;
 import game2048.entity.Tile;
 
+import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -27,8 +28,8 @@ public class Controller extends KeyAdapter {
 
     public void resetGame(){
         model.score = 0;
-        view.isGameWon = false;
-        view.isGameLost = false;
+        view.setGameWon(false);
+        view.setGameLost(false);
         model.resetGameTiles();
     }
 
@@ -40,10 +41,12 @@ public class Controller extends KeyAdapter {
         }
 
         if (!model.canMove()){
-            view.isGameLost = true;
+            view.setGameLost(true);
+            System.out.println("MAX - " + model.maxTile);
+            System.out.println("Game Lost");
         }
 
-        if (!view.isGameLost && !view.isGameWon){
+        if (!view.isGameLost() && !view.isGameWon()){
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     model.left();
@@ -70,7 +73,7 @@ public class Controller extends KeyAdapter {
         }
 
         if (model.maxTile == WINNING_TILE){
-            view.isGameWon = true;
+            view.setGameWon(true);
         }
         view.repaint();
     }
