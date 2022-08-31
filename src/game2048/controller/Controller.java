@@ -23,11 +23,11 @@ public class Controller extends KeyAdapter {
     }
 
     public int getScore(){
-        return model.score;
+        return model.getScore();
     }
 
     public void resetGame(){
-        model.score = 0;
+        model.setScore(0);
         view.setGameWon(false);
         view.setGameLost(false);
         model.resetGameTiles();
@@ -35,17 +35,29 @@ public class Controller extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        if (keyCode == KeyEvent.VK_ESCAPE){
+        checkingForResetingGame(e);
+        checkingForLoss();
+        doStepIfItIsAvailable(e);
+        checkingForWin();
+        view.repaint();
+    }
+
+    private void checkingForResetingGame(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
             resetGame();
         }
+    }
 
+
+
+    private void checkingForLoss() {
         if (!model.canMove()){
             view.setGameLost(true);
-            System.out.println("MAX - " + model.maxTile);
-            System.out.println("Game Lost");
         }
+    }
 
+
+    private void doStepIfItIsAvailable(KeyEvent e){
         if (!view.isGameLost() && !view.isGameWon()){
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
@@ -71,12 +83,15 @@ public class Controller extends KeyAdapter {
                     break;
             }
         }
+    }
 
-        if (model.maxTile == WINNING_TILE){
+    private void checkingForWin() {
+        if (model.getMaxTile() == WINNING_TILE){
             view.setGameWon(true);
         }
-        view.repaint();
     }
+
+
 
     public View getView() {
         return view;

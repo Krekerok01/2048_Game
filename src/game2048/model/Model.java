@@ -10,14 +10,28 @@ public class Model {
     private static final int FIELD_WIDTH = 4;
     private Tile[][] gameTiles;
 
-    public int score = 0;
-    public int maxTile = 0;
+    private int score = 0;
+    private int maxTile = 0;
 
     public Model() {
         resetGameTiles();
     }
 
+    public int getScore() {
+        return score;
+    }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getMaxTile() {
+        return maxTile;
+    }
+
+    public void setMaxTile(int maxTile) {
+        this.maxTile = maxTile;
+    }
 
     public void resetGameTiles(){
         gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
@@ -167,7 +181,7 @@ public class Model {
         return gameTiles;
     }
 
-    /////////////переделать
+
     private int getEmptyTilesCount() {
         return getEmptyTiles().size();
     }
