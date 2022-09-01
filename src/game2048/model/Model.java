@@ -167,7 +167,7 @@ public class Model {
         return gameTiles;
     }
 
-    /////////////переделать
+
     private int getEmptyTilesCount() {
         return getEmptyTiles().size();
     }
