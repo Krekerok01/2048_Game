@@ -10,14 +10,28 @@ public class Model {
     private static final int FIELD_WIDTH = 4;
     private Tile[][] gameTiles;
 
-    public int score = 0;
-    public int maxTile = 0;
+    private int score = 0;
+    private int maxTile = 0;
 
     public Model() {
         resetGameTiles();
     }
 
+    public int getScore() {
+        return score;
+    }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getMaxTile() {
+        return maxTile;
+    }
+
+    public void setMaxTile(int maxTile) {
+        this.maxTile = maxTile;
+    }
 
     public void resetGameTiles(){
         gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
@@ -26,7 +40,10 @@ public class Model {
                 gameTiles[i][j] = new Tile();
             }
         }
+        callAddTileMethodTwoTimes();
+    }
 
+    private void callAddTileMethodTwoTimes(){
         addTile();
         addTile();
     }
@@ -56,15 +73,15 @@ public class Model {
         ArrayList<Integer> list = new ArrayList<>();
         boolean isChanged = false;
 
-        for (Tile tile1: tiles){
-            if (tile1.getValue() != 0){
-                list.add(tile1.getValue());
+        for (Tile tile: tiles){
+            if (tile.getValue() != 0){
+                list.add(tile.getValue());
             }
         }
 
-        for (Tile tile2: tiles){
-            if (tile2.getValue() == 0){
-                list.add(tile2.getValue());
+        for (Tile tile: tiles){
+            if (tile.getValue() == 0){
+                list.add(tile.getValue());
             }
         }
 
@@ -108,9 +125,9 @@ public class Model {
     }
 
     public void left(){
-        if(isSaveNeeded){
-            saveState(gameTiles);
-        }
+
+        if(isSaveNeeded) saveState(gameTiles);
+
         boolean isChanged = false;
 
         for (int i = 0; i < FIELD_WIDTH; i++){
@@ -119,9 +136,7 @@ public class Model {
             }
         }
 
-        if(isChanged) {
-            addTile();
-        }
+        if(isChanged) addTile();
         isSaveNeeded = true;
     }
 
@@ -139,28 +154,29 @@ public class Model {
 
     public void up(){
         saveState(gameTiles);
-        rotate();
-        rotate();
-        rotate();
+        callRotateMethod(3);
         left();
-        rotate();
+        callRotateMethod(1);
     }
+
 
     public void down(){
         saveState(gameTiles);
-        rotate();
+        callRotateMethod(1);
         left();
-        rotate();
-        rotate();
-        rotate();
+        callRotateMethod(3);
     }
     public void right(){
         saveState(gameTiles);
-        rotate();
-        rotate();
+        callRotateMethod(2);
         left();
-        rotate();
-        rotate();
+        callRotateMethod(2);
+    }
+
+    private void callRotateMethod(int count){
+        for (int i = 0; i < count; i++) {
+            rotate();
+        }
     }
 
     public Tile[][] getGameTiles(){
