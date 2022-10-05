@@ -53,16 +53,15 @@ public class View extends JPanel {
         g.drawString("Score: " + controller.getScore(), 140, 465);
 
         if (isGameWon) {
-            JOptionPane.showMessageDialog(this, "You've won \uD83D\uDE0A");
-
-            startNewGame();
-
+            showMessage("You've won \uD83D\uDE0A");
         } else if (isGameLost) {
-            JOptionPane.showMessageDialog(this, "You've lost \uD83D\uDE22");
-            startNewGame();
+            showMessage("You've lost \uD83D\uDE22");
         }
+    }
 
-
+    private void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+        startNewGame();
     }
 
     private void startNewGame(){
