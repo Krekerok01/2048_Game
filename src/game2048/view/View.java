@@ -81,17 +81,13 @@ public class View extends JPanel {
     }
 
     private void drawTile(Graphics g2, Tile tile, int x, int y) {
-        Graphics2D g = ((Graphics2D) g2);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int value = tile.getValue();
         int xOffset = offsetCoors(x);
         int yOffset = offsetCoors(y);
-        g.setColor(tile.getTileColor());
-        g.fillRoundRect(xOffset, yOffset, TILE_SIZE, TILE_SIZE, 8, 8);
-        g.setColor(tile.getFontColor());
         final int size = value < 100 ? 36 : value < 1000 ? 32 : 24;
         final Font font = new Font(FONT_NAME, Font.BOLD, size);
-        g.setFont(font);
+
+        Graphics2D g = setDataToGraphics2DAndGetIt((Graphics2D) g2, tile.getTileColor(), xOffset, yOffset, tile.getFontColor(), font);
 
         String s = String.valueOf(value);
         final FontMetrics fm = getFontMetrics(font);
@@ -101,6 +97,15 @@ public class View extends JPanel {
 
         if (value != 0)
             g.drawString(s, xOffset + (TILE_SIZE - w) / 2, yOffset + TILE_SIZE - (TILE_SIZE - h) / 2 - 2);
+    }
+
+    private Graphics2D setDataToGraphics2DAndGetIt(Graphics2D g, Color tileColor, int xOffset, int yOffset, Color fontColor, Font font){
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setColor(tileColor);
+        g.fillRoundRect(xOffset, yOffset, TILE_SIZE, TILE_SIZE, 8, 8);
+        g.setColor(fontColor);
+        g.setFont(font);
+        return g;
     }
 
     private static int offsetCoors(int arg) {
