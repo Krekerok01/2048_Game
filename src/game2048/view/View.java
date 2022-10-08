@@ -64,11 +64,15 @@ public class View extends JPanel {
         startNewGame();
     }
 
-    private void startNewGame(){
+    public void startNewGame(){
         Model model = new Model();
         Controller controller = new Controller(model);
         JFrame game = new JFrame();
 
+        setDataToJFrameObject(controller, game);
+    }
+
+    private void setDataToJFrameObject(Controller controller, JFrame game) {
         game.setTitle("2048");
         game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game.setSize(450, 520);
